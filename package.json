@@ -1,0 +1,24 @@
+{
+  "name": "palaver.io-mongorepo",
+  "author": "Simon Skov Boisen <simon@skov-boisen.dk> (http:/www.skov-boisen.dk)",
+  "description": "a mongodb-based chat-repository for palaver.io",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "palaver.io",
+    "mongodb",
+    "chat"
+  ],
+  "depencencies": {
+    "mongojs": "0.4.6",
+    "underscore": "1.4.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ttps://github.com/ssboisen/palaver.io-mongorepo.git"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
+}
