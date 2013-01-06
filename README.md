@@ -1,4 +1,4 @@
 palaver.io-mongorepo
 ====================
 
-mongo chat-repository for palaver.io
+a mongodb-based chat-repository for palaver.io
