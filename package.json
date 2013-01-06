@@ -12,7 +12,8 @@
   "depencencies": {
     "mongojs": "0.4.6",
     "underscore": "1.4.3",
-    "q": "~0.8.11"
+    "q": "~0.8.11",
+    "palaver.io": ">=0.0.1"
   },
   "repository": {
     "type": "git",
