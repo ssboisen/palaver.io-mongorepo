@@ -12,11 +12,11 @@
   "depencencies": {
     "mongojs": "0.4.6",
     "underscore": "1.4.3",
-    "q": "~0.8.11",
+    "q": "~0.8.11"
   },
   "repository": {
     "type": "git",
-    "url": "ttps://github.com/ssboisen/palaver.io-mongorepo.git"
+    "url": "https://github.com/ssboisen/palaver.io-mongorepo.git"
   },
   "engines": {
     "node": "0.8.x",

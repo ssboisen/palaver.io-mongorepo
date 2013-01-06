@@ -1,7 +1,7 @@
-var Q = require('q'),
-    util = require('util'),
-    ChatRepository = require('ChatRepository'),
-    crypto = require("crypto");
+var Q = require('q')
+  , util = require('util')
+  , palaver = require('palaver.io')
+  , mongojs = require('mongojs');
 
 module.exports = MongoChatRepositoryFactory
 
@@ -18,23 +18,24 @@ function makeMongodbResolver (deferred) {
     };
 };
 
-function MongoChatRepositoryFactory(db) {
+function MongoChatRepositoryFactory(mongoUrl) {
 
+    var db = mongojs(process.env.MONGOURL || mongoUrl || 'palaver');
     var rooms = db.collection('rooms');
     var users = db.collection('users');
 
-    util.inherits(MongoChatRepository, ChatRepository);
+    util.inherits(MongoChatRepository, palaver.AbstractChatRepository);
 
     function MongoChatRepository(){
-        this.joinRoom = function(room_name, username){
+        this.joinRoom = function(roomName, username){
             var deferred = Q.defer();
-            
-            rooms.update({ name: room_name }, { $addToSet: { users: { username: username } } }, { upsert: true}, makeMongodbResolver(deferred));
+
+            rooms.update({ name: roomName }, { $addToSet: { users: { username: username } } }, { upsert: true}, makeMongodbResolver(deferred));
             
             return deferred.promise.then(function ()  {
                 var findDeferred = Q.defer();
                 
-                rooms.find({name: room_name}, makeMongodbResolver(findDeferred));
+                rooms.find({name: roomName}, makeMongodbResolver(findDeferred));
                 
                 return findDeferred.promise;
             }).then(function (docs){
@@ -42,23 +43,23 @@ function MongoChatRepositoryFactory(db) {
                     return docs[0];
                 }
                 else{
-                    throw new Error("An error occured while trying to join room '" + room_name + "'");
+                    throw new Error("An error occured while trying to join room '" + roomName + "'");
                 }
             });
         };
 
-        this.leaveRoom = function(room_name, username){
+        this.leaveRoom = function(roomName, username){
             var deferred = Q.defer();
 
-            rooms.update({ name: room_name }, { $pop: { users: { username: username}}}, makeMongodbResolver(deferred));
+            rooms.update({ name: roomName }, { $pop: { users: { username: username}}}, makeMongodbResolver(deferred));
 
             return deferred.promise;
         };
 
-        this.addMessageToRoom = function(room_name, message){
+        this.addMessageToRoom = function(roomName, message){
             var deferred = Q.defer();
 
-            rooms.update({name: room_name}, { $push: { messages: message}}, makeMongodbResolver(deferred));
+            rooms.update({name: roomName}, { $push: { messages: message}}, makeMongodbResolver(deferred));
 
             return deferred.promise;
         };
