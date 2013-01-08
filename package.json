@@ -13,7 +13,7 @@
     "mongojs": "0.4.6",
     "underscore": "1.4.3",
     "q": "~0.8.11",
-    "palaver.io": ">=0.0.1"
+    "palaver.io": "https://github.com/ssboisen/palaver.io/tarball/master"
   },
   "repository": {
     "type": "git",
