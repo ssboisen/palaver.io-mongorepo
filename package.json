@@ -9,7 +9,7 @@
     "mongodb",
     "chat"
   ],
-  "depencencies": {
+  "dependencies": {
     "mongojs": "0.4.6",
     "underscore": "1.4.3",
     "q": "~0.8.11",
